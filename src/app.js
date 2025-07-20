@@ -6,12 +6,14 @@ const authRoutes = require("./routes/auth.routes");
 const bookRoutes = require("./routes/book.routes");
 const { errorHandler } = require("./middlewares/error.middleware");
 const { authenticate } = require("./middlewares/auth.middleware");
+const { swaggerUi, specs } = require("./utils/swagger");
 
 const app = express();
 
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 // Root route for health check or welcome message
 app.get('/', (req, res) => {
   res.send('Booknest API is running!');
