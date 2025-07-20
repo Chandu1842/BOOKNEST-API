@@ -12,6 +12,10 @@ const app = express();
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
+// Root route for health check or welcome message
+app.get('/', (req, res) => {
+  res.send('Booknest API is running!');
+});
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use(limiter);
